@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Digital Clock</title>
+    <title>Digital Clock Wallpaper</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="page">
 
-      <div class="clock-card">
-        <div class="clock-display" id="clockDisplay"></div>
+    <canvas id="bg"></canvas>
 
-        <div class="controls">
-          <div class="control-label">Show / Hide</div>
-          <div class="toggle-row" id="toggleRow">
-            <button class="tog active" data-unit="year">Year</button>
-            <button class="tog active" data-unit="month">Month</button>
-            <button class="tog active" data-unit="day">Day</button>
-            <button class="tog active" data-unit="hours">Hours</button>
-            <button class="tog active" data-unit="minutes">Min</button>
-            <button class="tog active" data-unit="seconds">Sec</button>
-          </div>
-
-          <div class="control-label">Theme</div>
-          <div class="theme-row">
-            <button class="theme-swatch active" data-theme="dark"   title="Dark"   style="--c:#6366f1"></button>
-            <button class="theme-swatch"        data-theme="neon"   title="Neon"   style="--c:#00ff41"></button>
-            <button class="theme-swatch"        data-theme="retro"  title="Retro"  style="--c:#ff6a00"></button>
-            <button class="theme-swatch"        data-theme="ocean"  title="Ocean"  style="--c:#00cfff"></button>
-            <button class="theme-swatch"        data-theme="light"  title="Light"  style="--c:#6366f1;background:#e2e8f0;"></button>
-          </div>
-        </div>
-      </div>
-
+    <div class="clock-wrap">
+      <div class="clock-display" id="clockDisplay"></div>
     </div>
+
+    <div class="ui-overlay" id="uiOverlay">
+      <div class="toggle-row" id="toggleRow">
+        <button class="tog active" data-unit="year">Year</button>
+        <button class="tog active" data-unit="month">Month</button>
+        <button class="tog active" data-unit="day">Day</button>
+        <button class="tog active" data-unit="hours">Hours</button>
+        <button class="tog active" data-unit="minutes">Min</button>
+        <button class="tog active" data-unit="seconds">Sec</button>
+      </div>
+      <div class="scene-row">
+        <button class="scene-btn active" data-scene="beach">🏖 Beach</button>
+        <button class="scene-btn" data-scene="forest">🌿 Forest</button>
+        <button class="scene-btn" data-scene="night">🌙 Night Sky</button>
+        <button class="scene-btn" data-scene="aurora">🌌 Aurora</button>
+        <button class="scene-btn" data-scene="snow">❄️ Snow</button>
+      </div>
+    </div>
+
     <script src="index.js"></script>
   </body>
 </html>
