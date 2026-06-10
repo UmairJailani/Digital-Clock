@@ -150,6 +150,23 @@ html, body {
   color: rgba(255,255,255,0.7);
 }
 
+.fmt-divider {
+  margin-left: 0.6rem;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  padding-left: 1.2rem;
+}
+
+.ampm {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+  padding-top: 0.4rem;
+  margin-left: 0.3rem;
+}
+
 /* ── Scene Row ── */
 .scene-row {
   display: flex;

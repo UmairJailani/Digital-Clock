@@ -4,13 +4,15 @@ let W, H;
 
 // ── State ──
 const state = {
-  show:  { year: true, month: true, day: true, hours: true, minutes: true, seconds: true },
-  scene: 'beach',
+  show:   { year: true, month: true, day: true, hours: true, minutes: true, seconds: true },
+  scene:  'beach',
+  hour12: false,
 };
 try {
   const s = JSON.parse(localStorage.getItem('wpPrefs') || '{}');
-  if (s.show)  Object.assign(state.show, s.show);
-  if (s.scene) state.scene = s.scene;
+  if (s.show)               Object.assign(state.show, s.show);
+  if (s.scene)              state.scene  = s.scene;
+  if (s.hour12 !== undefined) state.hour12 = s.hour12;
 } catch {}
 
 function save() { localStorage.setItem('wpPrefs', JSON.stringify(state)); }
@@ -21,14 +23,24 @@ function pad(n) { return String(n).padStart(2,'0'); }
 
 function tick() {
   const now = new Date();
+  let h = now.getHours();
+  let ampm = '';
+  if (state.hour12) {
+    ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+  }
   const vals = {
     year:    String(now.getFullYear()),
     month:   MONTHS[now.getMonth()],
     day:     pad(now.getDate()),
-    hours:   pad(now.getHours()),
+    hours:   pad(h),
     minutes: pad(now.getMinutes()),
     seconds: pad(now.getSeconds()),
   };
+
+  // AM/PM indicator
+  const ampmEl = document.getElementById('ampm-indicator');
+  if (ampmEl) ampmEl.textContent = ampm;
   for (const [u, v] of Object.entries(vals)) {
     const el = document.getElementById('val-' + u);
     if (!el) continue;
@@ -68,6 +80,7 @@ function buildDisplay() {
       if (i) html += '<span class="sep">:</span>';
       html += `<div class="segment"><span class="seg-value" id="val-${u}"></span><span class="seg-label">${lbls[u]}</span></div>`;
     });
+    if (state.hour12) html += '<span class="ampm" id="ampm-indicator"></span>';
     html += '</div>';
   }
   disp.innerHTML = html;
@@ -477,6 +490,20 @@ document.querySelectorAll('.tog').forEach(btn => {
 document.querySelectorAll('.scene-btn').forEach(btn => {
   btn.addEventListener('click', () => setScene(btn.dataset.scene));
 });
+
+// ── 12h / 24h toggle ──
+const fmtBtn = document.getElementById('fmtBtn');
+function updateFmtBtn() {
+  fmtBtn.textContent = state.hour12 ? '12H' : '24H';
+  fmtBtn.classList.toggle('active', state.hour12);
+}
+fmtBtn.addEventListener('click', () => {
+  state.hour12 = !state.hour12;
+  updateFmtBtn();
+  buildDisplay();
+  save();
+});
+updateFmtBtn();
 
 // ── Init ──
 resize();
